@@ -3,6 +3,7 @@ import os, sys, time
 import argparse
 from PIL import Image
 import glob, shutil
+import statistics
 import matplotlib.pyplot as plt
 
 def main():
@@ -13,28 +14,26 @@ def main():
                         help='Input directory')
     parser.add_argument('--output_dir', type=str, default='../../data/interim',
                         help='Output directory')
+    parser.add_argument('--image_size', type=int, default=256,
+                        help='Image size after resizing')
     args = parser.parse_args()
 
-    input_dir = os.path.join(args.base, args.input_dir)
-    result_dir = os.path.join(args.base, args.output_dir)
-
+    num_of_imgs = 0
     # Stamp set loop
-    box = []
     for stamp_set in range(360):
-        stamp_dir = os.path.join(input_dir, '{0:04d}'.format(stamp_set))
-        files = glob.glob('{}/*png'.format(stamp_dir))
-        for f in files:
+        stamp_dir = os.path.join(args.base, args.input_dir, '{0:04d}'.format(stamp_set))
+        result_dir = os.path.join(args.base, args.output_dir, '{0:04d}'.format(stamp_set))
+        os.makedirs(result_dir, exist_ok=True)
+
+        files = glob.glob('{}/*.png'.format(stamp_dir))
+        for stamp_number, f in enumerate(files):
             img = Image.open(f)
-            w, h = img.size
-            r = 256 / float(min(w,h))
-            img2 = img.resize((int(r*w), int(r*h)), Image.BICUBIC)
-            plt.subplot(1,2,1)
-            plt.imshow(img)
-            plt.title('org')
-            plt.subplot(1,2,2)
-            plt.imshow(img2)
-            plt.title('processed')
-            plt.show()
+            # Resize images so that (args.image_size, args.image_size)
+            img = img.resize((args.image_size, args.image_size), Image.BICUBIC)
+            img.save('{0:s}/{1:04d}.png'.format(result_dir, stamp_number))
+            num_of_imgs += 1
+
+        print('Finished stamp set: {} , # images: ~{}'.format(stamp_set, num_of_imgs))
 
 
 if __name__ == '__main__':
