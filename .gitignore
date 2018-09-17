@@ -103,6 +103,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+
+# Original ignored setting
 data/external/*
 data/interim/*
 data/processed/*
