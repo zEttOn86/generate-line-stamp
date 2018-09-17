@@ -2,9 +2,7 @@
 import os, sys, time
 import argparse
 from PIL import Image
-import glob, shutil
-import statistics
-import matplotlib.pyplot as plt
+import glob
 
 def main():
     parser = argparse.ArgumentParser(description='Scrape line stamp')
