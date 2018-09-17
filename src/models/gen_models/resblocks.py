@@ -26,12 +26,12 @@ class Block(chainer.Chain):
             self.b1 = L.BatchNormalization(in_channels)
             self.b2 = L.BatchNormalization(hidden_channels)
 
-    def residual(self, x, **kwargs):
+    def residual(self, x):
         h = x
-        h = self.b1(h, **kwargs)
+        h = self.b1(h)
         h = self.activation(h)
         h = upsample_conv(h, self.c1) if self.upsample else self.c1(h)
-        h = self.b2(h, **kwargs)
+        h = self.b2(h)
         h = self.activation(h)
         h = self.c2(h)
         return h
@@ -40,4 +40,4 @@ class Block(chainer.Chain):
         return x
 
     def __call__(self, x):
-        return self.residual(x, **kwargs) + self.shortcut(x)
+        return self.residual(x) + self.shortcut(x)
