@@ -24,7 +24,7 @@ def main():
     parser.add_argument('--results_dir', type=str, default='../../models/results/gans',
                         help='directory to save the results to')
 
-    parser.add_argument('--inception_model_path', type=str, default='../../data/external/inception_model',
+    parser.add_argument('--inception_model_path', type=str, default='../../data/external/inception_model.model',
                         help='path to the inception model')
     parser.add_argument('--snapshot', type=str, default='',
                         help='path to the snapshot')
@@ -32,7 +32,7 @@ def main():
                         help='number of parallel data loading processes')
     args = parser.parse_args()
 
-    config = yaml_utils.Config(yaml.load(open(os.path.join(args.base, args.config_path)))
+    config = yaml_utils.Config(yaml.load(open(os.path.join(args.base, args.config_path))))
     print('GPU: {}'.format(args.gpu))
     print('# Minibatch-size: {}'.format(config.batchsize))
     print('# iteration: {}'.format(config.iteration))
@@ -88,7 +88,7 @@ def main():
     })
     updater = Updater(**kwargs, device=args.gpu)
 
-     def create_result_dir(base_dir, output_dir, config_path, config):
+    def create_result_dir(base_dir, output_dir, config_path, config):
         """https://github.com/pfnet-research/sngan_projection/blob/master/train.py"""
         result_dir = os.path.join(base_dir, output_dir)
         if not os.path.exists(result_dir):
