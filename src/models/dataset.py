@@ -28,7 +28,7 @@ class StampDataset(chainer.dataset.DatasetMixin):
         # Random right left transform
         if np.random.rand() > 0.5:
             img = img[:, :, ::-1]
-        img = np.random.uniform(size=img.shape, low=0, high=1./128)
+        img += np.random.uniform(size=img.shape, low=0, high=1./128)
         return img
 
     def get_example(self, i):
