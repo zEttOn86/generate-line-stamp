@@ -8,7 +8,7 @@ from chainer.training import extension
 from chainer.training import extensions
 
 import source.yaml_utils as yaml_utils
-from evaluation import sample_generate_conditional, sample_generate_light, calc_inception
+from evaluation import sample_generate_light, calc_inception
 
 from dataset import StampDataset
 from updater import Updater
@@ -24,7 +24,7 @@ def main():
     parser.add_argument('--results_dir', type=str, default='../../models/results/gans',
                         help='directory to save the results to')
 
-    parser.add_argument('--inception_model_path', type=str, default='./datasets/inception_model',
+    parser.add_argument('--inception_model_path', type=str, default='../../data/external/inception_model',
                         help='path to the inception model')
     parser.add_argument('--snapshot', type=str, default='',
                         help='path to the snapshot')
@@ -127,7 +127,7 @@ def main():
     trainer.extend(extensions.PrintReport(report_keys), trigger=(config.display_interval, 'iteration'))
 
     # evaluation functions
-    trainer.extend(sample_generate_light(gen, out, rows=10, cols=10),
+    trainer.extend(sample_generate_light(gen, os.path.join(args.base, args.results_dir), rows=10, cols=10),
                    trigger=(config.evaluation_interval // 10, 'iteration'),
                    priority=extension.PRIORITY_WRITER)
     trainer.extend(calc_inception(gen, n_ims=5000, splits=1, path=args.inception_model_path),
