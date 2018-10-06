@@ -3,8 +3,8 @@ import os, sys, time
 import numpy as np
 from PIL import Image
 import chainer
-import glob, itertools
-
+import glob
+from itertools import chain
 class StampDataset(chainer.dataset.DatasetMixin):
     def __init__(self, root, augmentation=False):
         print(' Initialize dataset')
@@ -15,7 +15,7 @@ class StampDataset(chainer.dataset.DatasetMixin):
         dnames = glob.glob('{}/*'.format(self._root))
         fnames = [glob.glob('{}/*.png'.format(d)) for d in dnames]
         print(fnames)
-        fnames = list(itertools.chain.from_iterable(fnames))
+        fnames = list(chain.from_iterable(fnames))
         print(fnames)
         self._fnames = fnames
 
