@@ -19,6 +19,7 @@ class Block(chainer.Chain):
         with self.init_scope():
             self.c1 = SNConvolution2D(in_channels, hidden_channels, ksize=ksize, pad=pad, initialW=initializer)
             self.c2 = SNConvolution2D(hidden_channels, out_channels, ksize=ksize, pad=pad, initialW=initializer)
+            self.c_sc = SNConvolution2D(in_channels, out_channels, ksize=1, pad=0, initialW=initializer_sc)
 
     def residual(self, x):
         h = x
@@ -31,6 +32,9 @@ class Block(chainer.Chain):
         return h
 
     def shortcut(self, x):
+        x = self.c_sc(x)
+        if self.downsample:
+            x = _downsample(x)
         return x
 
     def __call__(self, x):
