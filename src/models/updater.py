@@ -55,7 +55,7 @@ class Updater(chainer.training.StandardUpdater):
         batchsize = len(batch)
         x = []
         for j in range(batchsize):
-            x.append(np.asarray(batch[j][0])).astype('f')
+            x.append(np.asarray(batch[j][0]).astype('f'))
         x_real = Variable(xp.asarray(x))
         return x_real
 
