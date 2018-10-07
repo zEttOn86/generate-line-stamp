@@ -83,7 +83,7 @@ def main():
     kwargs = config.updater['args'] if 'args' in config.updater else {}
     kwargs.update({
         'models': models,
-        'iterator': iterator,
+        'iterator': train_iter,
         'optimizer': opts,
     })
     updater = Updater(**kwargs, device=args.gpu)
