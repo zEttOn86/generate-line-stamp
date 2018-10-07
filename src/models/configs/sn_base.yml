@@ -14,13 +14,13 @@ models:
     args:
       dim_z: 128
       bottom_width: 4
-      ch: 64
+      ch: 32
 
   discriminator:
       fn: dis_models/snresnet.py
       name: SNResNetProjectionDiscriminator
       args:
-        ch: 64
+        ch: 32
 
 adam:
   alpha: 0.0002
