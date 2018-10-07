@@ -13,12 +13,6 @@ class StampDataset(chainer.dataset.DatasetMixin):
 
         # Get image file path
         fnames = [os.path.abspath(i) for i in glob.glob("{}/**/*.png".format(self._root), recursive=True)]
-        #dnames = glob.glob('{}/*'.format(self._root))
-        #fnames = [glob.glob('{}/*.png'.format(d)) for d in dnames]
-        print(len(fnames))
-        #fnames = list(chain.from_iterable(fnames))
-        #print(len(fnames[0]))
-        print(fnames)
 
         self._fnames = fnames
 
