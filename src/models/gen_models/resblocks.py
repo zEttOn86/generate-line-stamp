@@ -17,6 +17,7 @@ class Block(chainer.Chain):
                 activation=F.relu, upsample=False):
         super(Block, self).__init__()
         initializer = chainer.initializers.GlorotUniform(math.sqrt(2))
+        initializer_sc = chainer.initializers.GlorotUniform()
         self.activation = activation
         self.upsample = upsample
         hidden_channels = out_channels if hidden_channels is None else hidden_channels
