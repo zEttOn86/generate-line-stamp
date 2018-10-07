@@ -55,7 +55,7 @@ class Updater(chainer.training.StandardUpdater):
         batchsize = len(batch)
         x = []
         for j in range(batchsize):
-            x.append(np.asarray(batch[j][0]).astype('f'))
+            x.append(np.asarray(batch[j]).astype('f'))
         x_real = Variable(xp.asarray(x))
         return x_real
 
@@ -79,6 +79,7 @@ class Updater(chainer.training.StandardUpdater):
             # Update discriminator
             x_real = self.get_batch(xp)
             batchsize = len(x_real)
+            print('x_real shape {}'.format(x_real.shape))
             dis_real = dis(x_real)
             x_fake = self._generate_samples(n_gen_samples=batchsize)
             dis_fake = dis(x_fake)
