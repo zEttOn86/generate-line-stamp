@@ -25,6 +25,7 @@ class Block(chainer.Chain):
             self.c2 = L.Convolution2D(hidden_channels, out_channels, ksize=ksize, pad=pad, initialW=initializer)
             self.b1 = L.BatchNormalization(in_channels)
             self.b2 = L.BatchNormalization(hidden_channels)
+            self.c_sc = L.Convolution2D(in_channels, out_channels, ksize=1, pad=0, initialW=initializer_sc)
 
     def residual(self, x):
         h = x
@@ -37,6 +38,7 @@ class Block(chainer.Chain):
         return h
 
     def shortcut(self, x):
+        x = upsample_conv(x, self.c_sc)
         return x
 
     def __call__(self, x):
