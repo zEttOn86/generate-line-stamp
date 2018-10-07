@@ -12,11 +12,14 @@ class StampDataset(chainer.dataset.DatasetMixin):
         self._augmentation = augmentation
 
         # Get image file path
-        dnames = glob.glob('{}/*'.format(self._root))
-        fnames = [glob.glob('{}/*.png'.format(d)) for d in dnames]
+        fnames = [os.path.abspath(i) for i in glob.glob("{}/**/*.png".format(self._root), recursive=True)]
+        #dnames = glob.glob('{}/*'.format(self._root))
+        #fnames = [glob.glob('{}/*.png'.format(d)) for d in dnames]
+        print(len(fnames))
+        #fnames = list(chain.from_iterable(fnames))
+        #print(len(fnames[0]))
         print(fnames)
-        fnames = list(chain.from_iterable(fnames))
-        print(fnames)
+
         self._fnames = fnames
 
         print(' Initilazation done')
@@ -32,7 +35,7 @@ class StampDataset(chainer.dataset.DatasetMixin):
         return img
 
     def get_example(self, i):
-        img = Image.open(self._fnames(i))
+        img = Image.open(self._fnames[i])
         # Normalization [-1,1]
         img = np.asarray(img).astype(np.float32).transpose(2,0,1)/128.0-1. # (ch, y, x)
         if not self._augmentation:
