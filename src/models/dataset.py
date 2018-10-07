@@ -30,7 +30,6 @@ class StampDataset(chainer.dataset.DatasetMixin):
 
     def get_example(self, i):
         img = Image.open(self._fnames[i]).convert('RGBA').convert('RGB')
-        print(self._fnames[i])
         # Normalization [-1,1]
         img = np.asarray(img).astype(np.float32).transpose(2,0,1)/128.0-1. # (ch, y, x)
         if not self._augmentation:
