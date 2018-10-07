@@ -79,7 +79,6 @@ class Updater(chainer.training.StandardUpdater):
             # Update discriminator
             x_real = self.get_batch(xp)
             batchsize = len(x_real)
-            print('x_real shape {}'.format(x_real.shape))
             dis_real = dis(x_real)
             x_fake = self._generate_samples(n_gen_samples=batchsize)
             dis_fake = dis(x_fake)
