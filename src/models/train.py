@@ -130,7 +130,7 @@ def main():
     trainer.extend(sample_generate_light(gen, os.path.join(args.base, args.results_dir), rows=10, cols=10),
                    trigger=(config.evaluation_interval // 10, 'iteration'),
                    priority=extension.PRIORITY_WRITER)
-    trainer.extend(calc_inception(gen, n_ims=5000, splits=1, path=args.inception_model_path),
+    trainer.extend(calc_inception(gen, n_ims=5000, splits=1, path=os.path.join(args.base, args.inception_model_path)),
                    trigger=(config.evaluation_interval, 'iteration'),
                    priority=extension.PRIORITY_WRITER)
 
