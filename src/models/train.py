@@ -124,7 +124,7 @@ def main():
     # Write a log of evaluation statistics
     trainer.extend(extensions.LogReport(keys=report_keys,
                                         trigger=(config.display_interval, 'iteration')))
-    trainer.extend(extensions.PrintReport(report_keys), trigger=(config.display_interval, 'iteration'))
+    #trainer.extend(extensions.PrintReport(report_keys), trigger=(config.display_interval, 'iteration'))
 
     # evaluation functions
     trainer.extend(sample_generate_light(gen, os.path.join(args.base, args.results_dir), rows=10, cols=10),

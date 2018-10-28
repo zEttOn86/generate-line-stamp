@@ -8,7 +8,8 @@ import scipy.linalg
 
 import chainer
 import chainer.functions as F
-
+from chainer import serializers
+from chainer import Variable
 sys.path.append(os.path.dirname(__file__))
 sys.path.append('../')
 from source.miscs.inception_score import inception_score, Inception
