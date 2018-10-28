@@ -24,7 +24,7 @@ def main():
     parser.add_argument('--results_dir', type=str, default='../../models/results/gans',
                         help='directory to save the results to')
 
-    parser.add_argument('--inception_model_path', type=str, default='../../data/external/inception_model.model',
+    parser.add_argument('--inception_model_path', type=str, default='../../data/external/inception_score.model',
                         help='path to the inception model')
     parser.add_argument('--snapshot', type=str, default='',
                         help='path to the snapshot')
